@@ -11,7 +11,7 @@ An Airport Management System (AMS) is a comprehensive software solution designed
 ### Some Example Queries
 
 1. Total number of unique passengers who have tickets for flights departing between 10:00 AM and 2:00 PM
-```Mysql
+```sql
 SELECT 
     COUNT(DISTINCT P.Passenger_ID) AS Total_Passengers
 FROM 
@@ -24,7 +24,7 @@ WHERE
     F.Departure_time BETWEEN '10:00' AND '14:00';
 ```
 2. Count the number of unique passengers who have flights departing within a specified time range.
-  ```Mysql
+  ```sql
  CREATE PROCEDURE CountPassengersBetweenTimes(IN arrival_time VARCHAR(45), IN departure_time VARCHAR(45))
 BEGIN
     SELECT 
@@ -40,7 +40,7 @@ BEGIN
 END //
 ```
 3. The average number of passengers per flight for each airline.
-```Mysql
+```sql
 SELECT 
     A.Airline_Name,
     AVG(PassengerCount) AS Avg_Passengers_Per_Flight
@@ -61,7 +61,7 @@ GROUP BY
     A.Airline_Name;
 ```
 4. The number of flights a Pilot (identified by their employee ID) has flown in the current week.
-```Mysql
+```sql
 CREATE PROCEDURE GetFlightsForPilotInWeek(
     IN input_employee_id INT
 )
@@ -82,7 +82,7 @@ BEGIN
 END //
 ```
 5. The average number of baggage items per passenger.
- ```Mysql
+ ```sql
  SELECT AVG(baggage_count) AS Avg_Baggage_Per_Passenger
 FROM (
     SELECT p.Passenger_ID, COUNT(b.Baggage_ID) AS baggage_count
@@ -93,13 +93,13 @@ FROM (
 LIMIT 1;
 ```
 6. Total number of passengers who have baggage associated with them.
-```Mysql
+```sql
 SELECT COUNT(DISTINCT p.Passenger_ID) AS Total_Passengers_With_Baggage
 FROM Passenger p
 JOIN Baggage b ON p.Passenger_ID = b.Passenger_ID;
 ```
 7. Retrieves the distinct passenger IDs and names for passengers who have more than one piece of baggage associated with them.
-```Mysql
+```sql
 SELECT DISTINCT p.Passenger_ID, p.Passenger_Name
 FROM Passenger p
 WHERE p.Passenger_ID IN (
@@ -110,7 +110,7 @@ WHERE p.Passenger_ID IN (
 );
 ```
 8. Retrieves flight details along with the count of booked passengers for flights where the number of booked passengers exceeds three.
-```Mysql
+```sql
 SELECT 
     f.Flight_ID, 
     f.Flight_Number,
@@ -125,7 +125,7 @@ HAVING
     COUNT(t.Passenger_ID) > 3;
 ```
 9. Retrieves the names of flight employees along with the count of flights they have worked on, listing the top 5 flight employees based on the number of flights worked.
-```Mysql
+```sql
 SELECT fe.Flight_Employee_Name, COUNT(f.Flight_ID) AS Flights_Worked
 FROM Flight_Employees fe
 JOIN Flight f ON fe.Flight_Employee_ID = f.Flight_Employee_ID
@@ -134,7 +134,7 @@ ORDER BY Flights_Worked DESC
 LIMIT 5;
 ```
 10. Calculates the total number of unique passengers who have tickets for flights departing between 10:00 AM and 2:00 PM.
-```Mysql
+```sql
 SELECT 
     COUNT(DISTINCT P.Passenger_ID) AS Total_Passengers
 FROM 
@@ -147,7 +147,7 @@ WHERE
     F.Departure_time BETWEEN '10:00' AND '14:00';
 ```
 11. Total number of unique passengers for each airline.
-```Mysql
+```sql
 SELECT
 a.Airline_Name,
 COUNT(DISTINCT p.Passenger_ID) AS Total_Passengers
@@ -161,7 +161,7 @@ GROUP BY
 a.Airline_Name;
 ```
 12. Retrieves the gate ID, gate number, and the count of flights assigned to each gate. It then orders the results by the flight count in descending order and limits the output to only the gate with the highest number of flights.
-```Mysql
+```sql
 SELECT 
     g.Gate_ID, 
     g.Gate_Number,
